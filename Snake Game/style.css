@@ -1,0 +1,21 @@
+img {
+   width: 60px;
+   height: 60px; 
+   display:block;
+   margin:0 auto;
+}
+
+#snake-game {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: rgb(126, 221, 126);
+    border: 2px solid black;
+}
+
+h1 {
+    font-family: 'Rubik Iso', cursive;
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 0px;
+}
