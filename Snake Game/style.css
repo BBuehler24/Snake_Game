@@ -6,16 +6,44 @@ img {
 }
 
 #snake-game {
-    width: 400px;
-    height: 400px;
+    width: 600px;
+    height: 600px;
     margin: 0 auto;
-    background-color: rgb(126, 221, 126);
+    background-image: linear-gradient(green, lightgreen);
     border: 2px solid black;
 }
 
 h1 {
     font-family: 'Rubik Iso', cursive;
     text-align: center;
+    display: block;
+    margin: 0 auto;
     font-size: 36px;
+    width: 250px;
     margin-bottom: 0px;
+}
+
+h2 {
+    text-align: center;
+    margin: 2px;
+}
+
+h3 {
+    font-weight: bold;
+    text-align: center;
+    margin: 2px;
+}
+
+input {
+    display:block;
+    margin:0 auto;
+}
+
+#start-game {
+    margin:3px auto;
+}
+
+button {
+    display:block;
+    margin:0 auto;
 }
