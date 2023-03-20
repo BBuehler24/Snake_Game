@@ -1,3 +1,13 @@
+// Be best to use canvas functionality. Learn & use it!
+// Function that moves snake & adds length when apples eaten
+// Direction selection with keys (event listeners for each key)
+// Function that randomized apple spawns
+// Wall hit function to detect game overs (as well as hit own snake tail)
+// Game over function
+// Some sort of gameloop
+// Reset Game Function?
+
+
 const canvas = document.querySelector('#snake-canvas');
 const canvas2d = canvas.getContext('2d');
 let pName = document.querySelector('#player-name');
