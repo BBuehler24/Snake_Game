@@ -18,9 +18,9 @@ let hasGameEnded = false;
 canvas.width = 600;
 canvas.height = 600;
 
-let pause = false;
+// let pause = false;
 let apples = [];
-let snakeSegs = [];
+let snakeLengthSegs = [];
 let snakeLength = 3;
 
 let snakeX = 0;
@@ -28,29 +28,30 @@ let snakeY = 0;
 
 let directionX = 10;
 let directionY = 0;
+let appleImg = 'Snake Game/Apple.jpg'
 
-function moveSnake() {
-    snakeSegs.unshift({ x: snakeX, y: snakeY}); //moves snakeX & snakeY into snakeSegments array
+function snakeMove() {
+    snakeLengthSegs.unshift({ x: snakeX, y: snakeY}); //moves snakeX & snakeY into snakeSegments array
     snakeX += directionX;
     snakeY += directionY;
-    while (snakeSegs.length > snakeLength) {
-        snakeSegs.pop();
+    while (snakeLengthSegs.length > snakeLength) {
+        snakeLengthSegs.pop();
     }
 }
 
 function drawSnake() {
     canvas2d.clearRect(0, 0, canvas.width, canvas.height);
     canvas2d.fillStyle = 'black';
-    for (let i = 0; i < snakeSegs.length; i++) {
-        canvas2d.fillRect(snakeSegs[i].x, snakeSegs[i].y, 10, 10);
+    for (let i = 0; i < snakeLengthSegs.length; i++) {
+        canvas2d.fillRect(snakeLengthSegs[i].x, snakeLengthSegs[i].y, 10, 10);
     }
 }
 
 function gameLoop() {
-    moveSnake();
+    snakeMove();
     drawSnake();
-    createApples();
-    checkCollision();
+    spawnApples();
+    checkWallHit();
     if (!hasGameEnded) {
         setTimeout (gameLoop, 100);
     }
@@ -59,27 +60,27 @@ gameLoop();
 
 document.addEventListener('keydown', (e) => {
     console.log(e);
-    switch (e.keyCode) {
-        case 37: //arrowLeft
+    switch (e.keyCode) { // if keydown matches any of below keys, updates directionX & directionY accordingly.
+        case 37: //37 = Left arrow # on keyboard
             directionX = -10;
             directionY = 0;
             break;
-        case 38: //arrowUp
+        case 38: //38 = Up arrow # on keyboard
             directionX = 0;
             directionY = -10;
             break;
-        case 39: //arrowRight
+        case 39: //39 = Right arrow # on keyboard
             directionX = 10;
             directionY = 0;
             break;
-        case 40: //arrowDown
+        case 40: //40 = Down arrow # on keyboard
             directionX = 0;
             directionY = 10;
             break;    
     }
 });
 
-function createApples () {
+function spawnApples () {
     if (apples.length < 15) {
         let applesX = Math.floor(Math.random() * canvas.width);
         let applesY = Math.floor(Math.random() * canvas.height);
@@ -91,7 +92,7 @@ function createApples () {
     }
 }
 
-function checkCollision () {
+function checkWallHit () {
     for (let i = 0; i < apples.length; i++) {
         if (snakeX < apples[i].x + 10 && snakeX + 10 > apples[i].x && snakeY < apples[i].y + 10 && snakeY + 10 > apples[i].y){
             snakeLength++;
@@ -104,8 +105,8 @@ function checkCollision () {
         if (snakeX < -10 || snakeY < -10 || snakeX > canvas.width + 10 || snakeY > canvas.length + 10) {
             gameOver();
         }
-        for (let i = 1; i < snakeSegs.length; i++) {
-            if (snakeX === snakeSegs[i].x && snakeY === snakeSegs[i].y) {
+        for (let i = 1; i < snakeLengthSegs.length; i++) {
+            if (snakeX === snakeLengthSegs[i].x && snakeY === snakeLengthSegs[i].y) {
                 gameOver();
             }
         }
@@ -119,19 +120,14 @@ function gameOver() {
     snakeLength = 3;
 }
 
-// pauseGame.addEventListener('click', function(e) {
-//     let key = e.keyCode;
-//     if (key === 80) {
-//         togglePause();
-//     }
-// });
+// interval = setInterval (function () {
+//     requestAnimationFrame (gameLoop)
+// }, INTERVAL);
 
-// function togglePause() {
-//     if (!pause) {
-//         paused = true;
-//     } else if (paused) {
-//         paused = false;
-//     }
+// pauseGame.addEventListener('click', pauseGame);
+
+// function pauseGame () {
+//     clearInterval(interval);
 // }
 
 startGame.addEventListener('click', resetGame)
